@@ -1,5 +1,6 @@
 name: AIS Public Customer Preview
 
+# G-WEB-03 governed canonical customer release gate
 on:
   push:
     branches:
@@ -27,14 +28,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
-
       - name: Verify exact head
         shell: bash
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
           echo AIS_G_WEB_03_EXACT_HEAD_PASS
-
       - name: Verify governed public release
         shell: bash
         run: |
@@ -49,11 +48,9 @@ jobs:
           grep -q 'AIS_NATIVE_BRIDGE_UNAVAILABLE_ON_WEB' native-bridge-binding.js
           grep -q 'AIS_INGEST_WEB_NO_NATIVE_EXTRACTION' document-ingest-binding.js
           echo AIS_G_WEB_03_GOVERNED_PUBLIC_RELEASE_PASS
-
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
-
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
