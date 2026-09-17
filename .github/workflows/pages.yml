@@ -24,8 +24,10 @@ jobs:
           test -f index.html
           ! grep -R -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' . --exclude-dir=.git
           echo AIS_G_WEB_02_PUBLIC_SURFACE_PASS
-      - name: Configure Pages
+      - name: Configure and enable Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
