@@ -1,67 +1,65 @@
 name: AIS Public Customer Preview
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: ais-public-customer-pages
   cancel-in-progress: false
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout exact execution head
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
+
       - name: Verify exact head
         shell: bash
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
           echo AIS_G_WEB_03_EXACT_HEAD_PASS
+
       - name: Verify governed public release
         shell: bash
         run: |
           set -euo pipefail
-          for f in index.html style.css app.js native-bridge-binding.js document-ingest-binding.js release-provenance.json; do test -f "$f"; done
-          test "$(python3 - <<'PY'
-import json
-p=json.load(open('release-provenance.json'))
-print(str(p['public_semantics']['authority']).lower())
-PY
-)" = false
-          test "$(python3 - <<'PY'
-import json
-p=json.load(open('release-provenance.json'))
-print(str(p['public_semantics']['truth_source']).lower())
-PY
-)" = false
-          test "$(python3 - <<'PY'
-import json
-p=json.load(open('release-provenance.json'))
-print(str(p['public_semantics']['model_inference']).lower())
-PY
-)" = false
+          for f in index.html style.css app.js native-bridge-binding.js document-ingest-binding.js release-provenance.json; do
+            test -f "$f"
+          done
+          python3 -c "import json; p=json.load(open('release-provenance.json')); assert p['public_semantics']['authority'] is False; assert p['public_semantics']['truth_source'] is False; assert p['public_semantics']['model_inference'] is False; assert p['public_semantics']['evidence_binding'] is False; assert p['public_semantics']['learning'] is False"
           ! grep -R -E '(HF_TOKEN|api-inference\.huggingface\.co|client/contracts/|AIS_TRUTH_STATE|AIS_RUNTIME_STATE|LearningCandidateGate)' . --exclude-dir=.git --exclude=release-provenance.json
           ! grep -R -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' . --exclude-dir=.git
           grep -q 'Inferenza non collegata' index.html
           grep -q 'AIS_NATIVE_BRIDGE_UNAVAILABLE_ON_WEB' native-bridge-binding.js
           grep -q 'AIS_INGEST_WEB_NO_NATIVE_EXTRACTION' document-ingest-binding.js
           echo AIS_G_WEB_03_GOVERNED_PUBLIC_RELEASE_PASS
+
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
+
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
   deploy:
     if: github.event_name != 'pull_request'
     environment:
