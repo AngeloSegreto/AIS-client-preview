@@ -1,5 +1,6 @@
 name: AIS Public Customer Preview
 
+# Governed public release CI gate
 on:
   push:
     branches:
