@@ -1,0 +1,44 @@
+{
+  "schema": "AIS_G_WEB_03_PUBLIC_RELEASE_PROVENANCE_V1",
+  "gate": "G-WEB-03",
+  "public_repository": "AngeloSegreto/AIS-client-preview",
+  "public_branch": "g-web-03-governed-canonical-client-release",
+  "canonical_repository": "AngeloSegreto/AIS-native-foundation",
+  "canonical_source_commit": "89fc6d0afc4989f60d1d8d2bf3185b4b8569d9e7",
+  "canonical_source_path": "client/customer/",
+  "release_scope": [
+    "index.html",
+    "style.css",
+    "app.js",
+    "native-bridge-binding.js",
+    "document-ingest-binding.js"
+  ],
+  "canonical_blob_identity": {
+    "index.html": "1b61892c7cd3e964b44f65470a9322d1692f2332",
+    "style.css": "d148f46886a70c469c43e22e46874ed5ccc2863a",
+    "app.js": "a683cda3b200f0e9fb2e02dbb08cfc2b56d5bbee",
+    "native-bridge-binding.js": "21b7feea833944726ccd754869d360e3b5be4204",
+    "document-ingest-binding.js": "ded0879f1e9786a3828ec9b05da5f5bfc33e3912"
+  },
+  "public_semantics": {
+    "authority": false,
+    "truth_source": false,
+    "provider_binding": false,
+    "model_inference": false,
+    "evidence_binding": false,
+    "learning": false,
+    "native_document_extraction": false,
+    "local_sha256": true
+  },
+  "excluded_from_publication": [
+    "client/contracts/",
+    "provider credentials",
+    "HF_TOKEN",
+    "authority state",
+    "truth state",
+    "kernel material",
+    "teacher material",
+    "learning material"
+  ],
+  "note": "Public mirror is a governed customer surface only. It is not an authority source, truth source, provider runtime, or training surface. Web-specific fail-closed adaptations are permitted where native-only capabilities are unavailable."
+}
