@@ -1,38 +1,55 @@
 name: AIS Public Customer Preview
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: ais-public-customer-pages
   cancel-in-progress: false
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
+      - name: Verify exact head
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo AIS_G_WEB_EXACT_HEAD_PASS
       - name: Verify public surface
         shell: bash
         run: |
           set -euo pipefail
           test -f index.html
           ! grep -R -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' . --exclude-dir=.git
-          echo AIS_G_WEB_02_PUBLIC_SURFACE_PASS
-      - name: Configure and enable Pages
+          echo AIS_G_WEB_PUBLIC_SURFACE_PASS
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
