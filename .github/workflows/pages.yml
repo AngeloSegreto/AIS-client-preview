@@ -1,6 +1,6 @@
 name: AIS Public Customer Preview
 
-# Governed public release CI gate
+# G-WEB-03 governed canonical customer release gate
 on:
   push:
     branches:
@@ -23,7 +23,8 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout exact execution head
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 1
@@ -32,14 +33,22 @@ jobs:
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
-          echo AIS_G_WEB_EXACT_HEAD_PASS
-      - name: Verify public surface
+          echo AIS_G_WEB_03_EXACT_HEAD_PASS
+      - name: Verify governed public release
         shell: bash
         run: |
           set -euo pipefail
-          test -f index.html
-          ! grep -R -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' . --exclude-dir=.git
-          echo AIS_G_WEB_PUBLIC_SURFACE_PASS
+          for f in index.html style.css app.js native-bridge-binding.js document-ingest-binding.js release-provenance.json; do
+            test -f "$f"
+          done
+          python3 -c "import json; p=json.load(open('release-provenance.json')); assert p['public_semantics']['authority'] is False; assert p['public_semantics']['truth_source'] is False; assert p['public_semantics']['model_inference'] is False; assert p['public_semantics']['evidence_binding'] is False; assert p['public_semantics']['learning'] is False"
+          # Scan the customer release payload, not the CI policy source itself.
+          ! grep -E '(HF_TOKEN|api-inference\.huggingface\.co|client/contracts/|AIS_TRUTH_STATE|AIS_RUNTIME_STATE|LearningCandidateGate)' index.html style.css app.js native-bridge-binding.js document-ingest-binding.js
+          ! grep -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' index.html style.css app.js native-bridge-binding.js document-ingest-binding.js release-provenance.json
+          grep -q 'Inferenza non collegata' index.html
+          grep -q 'AIS_NATIVE_BRIDGE_UNAVAILABLE_ON_WEB' native-bridge-binding.js
+          grep -q 'AIS_INGEST_WEB_NO_NATIVE_EXTRACTION' document-ingest-binding.js
+          echo AIS_G_WEB_03_GOVERNED_PUBLIC_RELEASE_PASS
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
