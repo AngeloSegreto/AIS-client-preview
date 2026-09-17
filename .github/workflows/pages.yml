@@ -1,0 +1,42 @@
+name: AIS Public Customer Preview
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ais-public-customer-pages
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Verify public surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          ! grep -R -E '(authority["[:space:]:=]+true|truth_source["[:space:]:=]+true|customer_inference["[:space:]:=]+true)' . --exclude-dir=.git
+          echo AIS_G_WEB_02_PUBLIC_SURFACE_PASS
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
