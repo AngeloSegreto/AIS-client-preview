@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AIS Control">
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./control-manifest.webmanifest">
 <title>AIS — Executive Control Plane</title>
 <style>
 :root{--bg:#05070a;--panel:#0b1118;--line:#2b3440;--ivory:#f1eadf;--muted:#8f98a3;--gold:#d7a956;--green:#68df8c;--amber:#f0bb5f;--red:#f47c7c;--blue:#7bb9f6;--safe:env(safe-area-inset-bottom,0px);--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
@@ -77,5 +77,4 @@ save.onclick=()=>{localStorage.setItem(KEY,base.value.trim());readRuntime()};
 off.onclick=()=>{localStorage.removeItem(KEY);live.classList.remove("on");liveText.textContent="REMOTE OFF";readback.textContent="Telecomando spento localmente."};
 document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-p]").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));document.getElementById("p-"+b.dataset.p).classList.add("on")});
 renderLanes(); if(localStorage.getItem(KEY)) readRuntime();
-</script>
-</body></html>
+if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./control-sw.js").catch(()=>{}))}\n</script>\n</body></html>
