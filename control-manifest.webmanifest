@@ -1,0 +1,9 @@
+{
+  "name":"AIS Executive Control Plane",
+  "short_name":"AIS Control",
+  "start_url":"./control.html",
+  "scope":"./",
+  "display":"standalone",
+  "background_color":"#05070a",
+  "theme_color":"#05070a"
+}
