@@ -8,73 +8,99 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="AIS Control">
 <link rel="manifest" href="./control-manifest.webmanifest">
-<title>AIS — Executive Control Plane</title>
+<title>AIS — Executive Control Plane V2</title>
 <style>
-:root{--bg:#05070a;--panel:#0b1118;--line:#2b3440;--ivory:#f1eadf;--muted:#8f98a3;--gold:#d7a956;--green:#68df8c;--amber:#f0bb5f;--red:#f47c7c;--blue:#7bb9f6;--safe:env(safe-area-inset-bottom,0px);--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 20%,#1b233015,transparent 30%),var(--bg);color:var(--ivory);font-family:var(--sans)}button,input{font:inherit}.app{min-height:100dvh;padding-bottom:calc(82px + var(--safe))}.top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#05070adf;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.brand{font:32px var(--serif)}.live{display:flex;gap:8px;align-items:center;font:10px var(--mono);letter-spacing:.13em}.dot{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}.live.on .dot{background:var(--green);box-shadow:0 0 12px var(--green)}main{max-width:980px;margin:auto;padding:18px}.hero h1{font:42px/1.02 var(--serif);margin:8px 0}.hero p{color:var(--muted);line-height:1.55}.grid{display:grid;gap:12px}.card{border:1px solid var(--line);background:linear-gradient(180deg,#101720,#0a0f15);border-radius:18px;padding:16px}.head{display:flex;justify-content:space-between;gap:12px;align-items:start}.eyebrow{font:10px var(--mono);letter-spacing:.15em;text-transform:uppercase;color:#9aa2ab}.value{font:25px var(--serif)}.badge{font:9px var(--mono);letter-spacing:.12em;text-transform:uppercase}.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.metric{border:1px solid #232d38;border-radius:12px;padding:11px;text-align:center}.metric b{display:block;font:22px var(--serif)}.metric span{display:block;margin-top:5px;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.1em}.primary,.secondary{width:100%;border-radius:12px;min-height:48px;margin-top:10px}.primary{border:1px solid #d7a95688;background:#4c3216;color:#ffe1a0}.secondary{border:1px solid var(--line);background:#0a1017;color:#d6dae0}.gate{border-color:#d7a95666}.gate h2{font:27px var(--serif);margin:8px 0}.mono{font:11px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;color:#c3cbd3}.list{display:grid;gap:8px;margin-top:12px}.item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:11px;border:1px solid #252e38;border-radius:12px}.item small{color:var(--muted)}.remote{display:grid;gap:10px}.remote input{width:100%;border:1px solid var(--line);background:#081018;color:#fff;padding:12px;border-radius:10px}.danger{border-color:#ff6f6f55}.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px 12px calc(8px + var(--safe));background:#05070aee;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.bottom button{border:0;background:#0d131a;color:#9ba5af;border-radius:12px;min-height:50px}.bottom button.on{color:var(--gold);background:#171d24}.page{display:none}.page.on{display:block}@media(max-width:620px){.row{grid-template-columns:repeat(2,1fr)}main{padding:14px}.hero h1{font-size:36px}}
+:root{--bg:#05070a;--panel:#0b1118;--line:#2b3440;--ivory:#f1eadf;--muted:#8f98a3;--gold:#d7a956;--green:#68df8c;--amber:#f0bb5f;--red:#f47c7c;--blue:#7bb9f6;--gray:#727b85;--safe:env(safe-area-inset-bottom,0px);--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 20%,#1b233015,transparent 30%),var(--bg);color:var(--ivory);font-family:var(--sans)}button,input{font:inherit}.app{min-height:100dvh;padding-bottom:calc(82px + var(--safe))}.top{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#05070adf;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.brand{font:32px var(--serif)}.live{display:flex;gap:8px;align-items:center;font:10px var(--mono);letter-spacing:.13em}.dot{width:9px;height:9px;border-radius:50%;background:var(--gray);box-shadow:0 0 12px #727b8555}.live.ok .dot{background:var(--green);box-shadow:0 0 12px var(--green)}.live.warn .dot{background:var(--amber);box-shadow:0 0 12px var(--amber)}.live.bad .dot{background:var(--red);box-shadow:0 0 12px var(--red)}main{max-width:980px;margin:auto;padding:18px}.hero h1{font:42px/1.02 var(--serif);margin:8px 0}.hero p{color:var(--muted);line-height:1.55}.grid{display:grid;gap:12px}.card{border:1px solid var(--line);background:linear-gradient(180deg,#101720,#0a0f15);border-radius:18px;padding:16px}.head{display:flex;justify-content:space-between;gap:12px;align-items:start}.eyebrow{font:10px var(--mono);letter-spacing:.15em;text-transform:uppercase;color:#9aa2ab}.value{font:25px var(--serif)}.badge{font:9px var(--mono);letter-spacing:.12em;text-transform:uppercase}.ok{color:var(--green)}.warn{color:var(--amber)}.bad{color:var(--red)}.idle{color:var(--gray)}.row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}.metric{border:1px solid #232d38;border-radius:12px;padding:11px;text-align:center}.metric b{display:block;font:22px var(--serif)}.metric span{display:block;margin-top:5px;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.1em}.primary,.secondary{width:100%;border-radius:12px;min-height:48px;margin-top:10px}.primary{border:1px solid #d7a95688;background:#4c3216;color:#ffe1a0}.secondary{border:1px solid var(--line);background:#0a1017;color:#d6dae0}.gate{border-color:#d7a95666}.gate h2{font:27px var(--serif);margin:8px 0}.mono{font:11px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;color:#c3cbd3}.list{display:grid;gap:8px;margin-top:12px}.item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:11px;border:1px solid #252e38;border-radius:12px}.item small{display:block;color:var(--muted);margin-top:4px;font-size:10px}.remote{display:grid;gap:10px}.remote input{width:100%;border:1px solid var(--line);background:#081018;color:#fff;padding:12px;border-radius:10px}.danger{border-color:#ff6f6f55}.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.legend div{border:1px solid #252e38;border-radius:11px;padding:9px;font-size:10px}.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px 12px calc(8px + var(--safe));background:#05070aee;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.bottom button{border:0;background:#0d131a;color:#9ba5af;border-radius:12px;min-height:50px}.bottom button.on{color:var(--gold);background:#171d24}.page{display:none}.page.on{display:block}@media(max-width:620px){.row,.legend{grid-template-columns:repeat(2,1fr)}main{padding:14px}.hero h1{font-size:36px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="brand">AIS</div><div class="live" id="live"><i class="dot"></i><span id="liveText">REMOTE OFF</span></div></header>
+<header class="top"><div class="brand">AIS</div><div class="live idle" id="live"><i class="dot"></i><span id="liveText">UNVERIFIED</span></div></header>
 <main>
 <section class="page on" id="p-state">
-  <div class="hero"><div class="eyebrow">Executive Control Plane</div><h1>Telecomando AIS</h1><p>Superficie mobile fail-closed. Cloudflare orchestra, GitHub conserva la custody, Hugging Face esegue solo lane zero-cost qualificate.</p></div>
-  <div class="grid">
-    <section class="card"><div class="head"><div><div class="eyebrow">Control Plane</div><div class="value" id="cfState">UNKNOWN</div></div><span class="badge warn" id="cfBadge">READBACK</span></div>
-      <div class="row"><div class="metric"><b id="sched">—</b><span>Schedules</span></div><div class="metric"><b id="rr">—</b><span>RR01</span></div><div class="metric"><b id="paid">OFF</b><span>Paid</span></div><div class="metric"><b id="auth">OFF</b><span>Authority</span></div></div>
-    </section>
-    <section class="card gate"><div class="eyebrow">Current hard gate</div><h2>K13-STAB02 · DIAG01 runtime v1.7 readback</h2><p style="color:var(--muted)">REC01 è chiuso fail-closed. DIAG01 è armata ma non deve consumare la singola provider call finché il runtime servito non prova identità/versione ed endpoint.</p>
-      <button class="primary" id="refresh">↻ Verifica runtime v1.7</button>
-      <button class="secondary" id="diagStatus">Leggi stato DIAG01</button>
-    </section>
-    <section class="card"><div class="eyebrow">Lane qualification</div><div class="list" id="lanes"></div></section>
-    <section class="card"><div class="eyebrow">Readback</div><pre class="mono" id="readback">Nessun readback ancora.</pre></section>
-  </div>
-</section>
-<section class="page" id="p-remote">
-  <div class="hero"><div class="eyebrow">Remote</div><h1>Control binding</h1><p>Il telecomando usa solo endpoint di stato pubblici per il readback. Le azioni autenticate richiedono token mobile e restano separate dalla UI pubblica.</p></div>
-  <section class="card remote"><label class="eyebrow">CF01 Base URL</label><input id="base" value="https://ais-cf01-orchestration.angelo-segreto-xy.workers.dev"><button class="primary" id="save">Accendi telecomando</button><button class="secondary" id="off">Spegni telecomando</button></section>
-</section>
-<section class="page" id="p-policy">
-  <div class="hero"><div class="eyebrow">Governance</div><h1>Firewalls</h1></div>
-  <section class="card danger"><pre class="mono">authority = false
-truth_source = false
-training_authority = false
-promotion_go = false
-spend_authority = false
-paid_execution_authorized = false
-automatic_paid_escalation = false
-paid_fallback = false
+<div class="hero"><div class="eyebrow">Executive Control Plane V2</div><h1>Telecomando AIS</h1><p>Nessun verde senza evidence. Gli stati derivano da readback live, evidence canonica o diventano UNKNOWN/STALE.</p></div>
+<div class="grid">
+<section class="card"><div class="head"><div><div class="eyebrow">Control Plane</div><div class="value" id="cfState">UNKNOWN</div></div><span class="badge idle" id="cfBadge">UNVERIFIED</span></div>
+<div class="row"><div class="metric"><b id="sched">—</b><span>Schedules</span></div><div class="metric"><b id="rr">—</b><span>RR01</span></div><div class="metric"><b id="paid">—</b><span>Paid</span></div><div class="metric"><b id="auth">—</b><span>Authority</span></div></div></section>
+<section class="card gate"><div class="eyebrow">Current hard gate</div><h2>K13-STAB02 · DIAG01 runtime v1.7 readback</h2><p style="color:var(--muted)">Il gate resta chiuso finché il runtime servito non prova identità/versione ed endpoint DIAG01. La UI non esegue DIAG01.</p>
+<button class="primary" id="refresh">↻ Aggiorna evidence live</button><button class="secondary" id="diagStatus">Leggi DIAG01</button></section>
+<section class="card"><div class="eyebrow">Evidence-derived lanes</div><div class="list" id="lanes"></div></section>
+<section class="card"><div class="eyebrow">Evidence semantics</div><div class="legend"><div><b class="ok">LIVE VERIFIED</b><br><span>readback attuale</span></div><div><b class="warn">CACHED / STALE</b><br><span>evidence precedente</span></div><div><b class="bad">FAIL-CLOSED</b><br><span>gate fallito/bloccato</span></div><div><b class="idle">UNKNOWN</b><br><span>nessuna evidence</span></div></div></section>
+<section class="card"><div class="eyebrow">Readback bundle</div><pre class="mono" id="readback">Nessun readback ancora.</pre></section>
+</div></section>
+<section class="page" id="p-remote"><div class="hero"><div class="eyebrow">Remote</div><h1>Control binding</h1><p>REMOTE ON significa health schema verificato + firewalls verificati + freshness accettabile. Salvare un URL non basta.</p></div>
+<section class="card remote"><label class="eyebrow">CF01 Base URL</label><input id="base" value="https://ais-cf01-orchestration.angelo-segreto-xy.workers.dev"><button class="primary" id="save">Salva e verifica</button><button class="secondary" id="off">Disconnetti</button></section></section>
+<section class="page" id="p-policy"><div class="hero"><div class="eyebrow">Governance</div><h1>Firewalls</h1></div><section class="card danger"><pre class="mono" id="policy">authority = expected false
+truth_source = expected false
+promotion_go = expected false
+spend_authority = expected false
+paid_execution_authorized = expected false
 
-RR01 scoped routing = ACTIVE ONLY INSIDE QUALIFIED SCOPES
-RR01 general routing = FAIL_CLOSED</pre></section>
-</section>
+Valori mostrati come VERIFIED solo dopo readback coerente.</pre></section></section>
 </main>
 <nav class="bottom"><button class="on" data-p="state">STATE</button><button data-p="remote">REMOTE</button><button data-p="policy">POLICY</button></nav>
 </div>
 <script>
-const KEY="ais_control_remote_v1";
-const LANE_DATA=[
-["ACP02 production runtime","PASS","ok"],
-["RR01 scoped empirical routing","ACTIVE","ok"],
-["RR01 general routing","FAIL-CLOSED","bad"],
-["K13-STAB01 numerical hardening","MERGED","ok"],
-["K13-STAB02 fresh holdout","PENDING","warn"],
-["DIAG01 runtime v1.7 readback","NEXT","warn"],
-["Council / Critic / Verifier","PENDING","bad"],
-["Self-repair exact replay","PENDING","warn"],
-["RL01 policy evolution","SHADOW","warn"],
-["Paid authority","OFF","bad"]
-];
-function base(){return (localStorage.getItem(KEY)||document.getElementById("base").value).replace(/\/$/,"")}
-function renderLanes(){lanes.innerHTML=LANE_DATA.map(x=>'<div class="item"><div><b>'+x[0]+'</b></div><span class="badge '+x[2]+'">'+x[1]+'</span></div>').join("")}
-async function get(path){const t0=performance.now();const r=await fetch(base()+path,{cache:"no-store"});const text=await r.text();let data;try{data=JSON.parse(text)}catch{data={raw:text}};return {ok:r.ok,status:r.status,latency:Math.round(performance.now()-t0),data}}
-async function readRuntime(){readback.textContent="Verifica in corso…";try{const [h,s]=await Promise.all([get("/health"),get("/public/hfhub/remote-executor-stab02-status-v1")]);live.classList.add("on");liveText.textContent="REMOTE ON";cfState.textContent=h.data?.system_status||h.data?.state||"RUNNING";cfBadge.textContent=h.ok?"LIVE":"DEGRADED";cfBadge.className="badge "+(h.ok?"ok":"warn");sched.textContent=h.data?.schedule_count??h.data?.expected_schedule_count??"3";rr.textContent=h.data?.rr01_rpc_smoke||h.data?.rr01?.state||"SCOPED";paid.textContent=String(h.data?.paid_execution_authorized??false).toUpperCase();auth.textContent=String(h.data?.authority??false).toUpperCase();readback.textContent=JSON.stringify({health:h,status:s},null,2)}catch(e){live.classList.remove("on");liveText.textContent="REMOTE ERROR";cfState.textContent="UNREACHABLE";cfBadge.textContent="FAIL-CLOSED";cfBadge.className="badge bad";readback.textContent=String(e)}}
-async function readDiag(){readback.textContent="Lettura DIAG01…";try{const d=await get("/public/k13/stab02-rec01-proposer-status-v1");readback.textContent=JSON.stringify(d,null,2)}catch(e){readback.textContent=String(e)}}
-refresh.onclick=readRuntime;diagStatus.onclick=readDiag;
-save.onclick=()=>{localStorage.setItem(KEY,base.value.trim());readRuntime()};
-off.onclick=()=>{localStorage.removeItem(KEY);live.classList.remove("on");liveText.textContent="REMOTE OFF";readback.textContent="Telecomando spento localmente."};
+const KEY="ais_control_remote_v2";
+const FRESH_MS=5*60*1000;
+const evidence={health:null,remoteExecutor:null,diag:null,checkedAt:null};
+function safeGet(k){try{return localStorage.getItem(k)}catch{return null}}
+function safeSet(k,v){try{localStorage.setItem(k,v);return true}catch{return false}}
+function safeDel(k){try{localStorage.removeItem(k)}catch{}}
+function base(){return (safeGet(KEY)||document.getElementById("base").value).replace(/\/$/,"")}
+function nowIso(){return new Date().toISOString()}
+function freshness(){return evidence.checkedAt?Date.now()-evidence.checkedAt<FRESH_MS:false}
+async function get(path){const ctrl=new AbortController();const timer=setTimeout(()=>ctrl.abort(),10000);const t0=performance.now();try{const r=await fetch(base()+path,{cache:"no-store",signal:ctrl.signal});const text=await r.text();let data;try{data=JSON.parse(text)}catch{data={raw:text}};return {ok:r.ok,status:r.status,latency_ms:Math.round(performance.now()-t0),data,source:"LIVE_CF01",observed_at:nowIso()}}finally{clearTimeout(timer)}}
+function cls(s){return s==="LIVE_VERIFIED"?"ok":s==="CACHED_STALE"?"warn":s==="FAIL_CLOSED"?"bad":"idle"}
+function label(s){return s.replaceAll("_"," ")}
+function lane(name,state,source,detail){return {name,state,source,detail}}
+function derive(){
+ const h=evidence.health?.data||{};
+ const x=evidence.remoteExecutor?.data||{};
+ const d=evidence.diag?.data||{};
+ const fresh=freshness();
+ const healthSchema=h.schema==="AIS_CF01_HEALTH_V4"||h.control_plane_id==="CF01"||h.lane==="CF01_CLOUDFLARE_ORCHESTRATION";
+ const firewalls=[h.authority,h.truth_source,h.promotion_go,h.spend_authority,h.paid_execution_authorized].every(v=>v===false);
+ const liveVerified=!!(evidence.health?.ok&&healthSchema&&firewalls&&fresh);
+ const runtimeVersion=x.executor_version||x.runtime_version||x.version||x.expected_executor_version||null;
+ const diagRuntimePass=liveVerified&&runtimeVersion==="1.7.0";
+ const lanes=[
+   lane("ACP02 / CF01 runtime",liveVerified?"LIVE_VERIFIED":evidence.health?.ok?"CACHED_STALE":"UNKNOWN",evidence.health?.source||"NONE",h.system_status||h.state||"no verified health"),
+   lane("RR01 scoped empirical routing",liveVerified&&String(h.rr01_rpc_smoke||h.rr01?.state||"").toUpperCase().includes("PASS")?"LIVE_VERIFIED":liveVerified?"CACHED_STALE":"UNKNOWN","CF01_HEALTH",h.rr01_rpc_smoke||h.rr01?.state||"not exposed"),
+   lane("RR01 general routing","FAIL_CLOSED","STATIC_POLICY","unsupported scopes remain fail-closed"),
+   lane("K13-STAB01 numerical hardening","CACHED_STALE","CANONICAL_GITHUB","merged evidence exists; not a live runtime property"),
+   lane("K13-STAB02 fresh holdout","UNKNOWN","NO_QUALIFICATION_EVIDENCE","not promoted by UI"),
+   lane("DIAG01 runtime v1.7 readback",diagRuntimePass?"LIVE_VERIFIED":evidence.remoteExecutor?.ok?"CACHED_STALE":"UNKNOWN","CF01→HF_STATUS",runtimeVersion?("runtime "+runtimeVersion):"runtime identity unavailable"),
+   lane("DIAG01 execution",String(d.state||"").includes("COMPLET")?"CACHED_STALE":"UNKNOWN","CF01_DIAG_STATUS",d.state||"not executed / unknown"),
+   lane("Council / Critic / Verifier","UNKNOWN","NO_CANONICAL_PASS","no independent qualification readback"),
+   lane("Self-repair exact replay","UNKNOWN","NO_CANONICAL_PASS","pending evidence"),
+   lane("RL01 policy evolution","CACHED_STALE","CANONICAL_POLICY","shadow/reference only"),
+   lane("Paid authority","FAIL_CLOSED","LIVE+POLICY",firewalls?"all spend firewalls false":"not verified")
+ ];
+ return {liveVerified,healthSchema,firewalls,runtimeVersion,lanes,h,x,d,fresh};
+}
+function render(){
+ const z=derive();
+ live.className="live "+(z.liveVerified?"ok":evidence.health?.ok?"warn":"idle");
+ liveText.textContent=z.liveVerified?"REMOTE VERIFIED":evidence.health?.ok?"REMOTE STALE/UNVERIFIED":"UNVERIFIED";
+ cfState.textContent=z.h.system_status||z.h.state||"UNKNOWN";
+ cfBadge.textContent=z.liveVerified?"LIVE VERIFIED":evidence.health?.ok?"UNVERIFIED":"UNKNOWN";cfBadge.className="badge "+cls(z.liveVerified?"LIVE_VERIFIED":evidence.health?.ok?"CACHED_STALE":"UNKNOWN");
+ sched.textContent=z.h.schedule_count??z.h.expected_schedule_count??(Array.isArray(z.h.schedules)?z.h.schedules.length:"—");
+ rr.textContent=z.h.rr01_rpc_smoke||z.h.rr01?.state||"—";
+ paid.textContent=z.h.paid_execution_authorized===false?"OFF":"—";
+ auth.textContent=z.h.authority===false?"OFF":"—";
+ lanes.innerHTML=z.lanes.map(x=>'<div class="item"><div><b>'+x.name+'</b><small>'+x.source+' · '+x.detail+'</small></div><span class="badge '+cls(x.state)+'">'+label(x.state)+'</span></div>').join("");
+ policy.textContent='authority = '+String(z.h.authority??"UNVERIFIED")+'\ntruth_source = '+String(z.h.truth_source??"UNVERIFIED")+'\npromotion_go = '+String(z.h.promotion_go??"UNVERIFIED")+'\nspend_authority = '+String(z.h.spend_authority??"UNVERIFIED")+'\npaid_execution_authorized = '+String(z.h.paid_execution_authorized??"UNVERIFIED")+'\n\nfirewall bundle verified = '+z.firewalls+'\nfreshness < 5 min = '+z.fresh;
+}
+async function refreshAll(){readback.textContent="Aggiornamento evidence…";try{const [h,x,d]=await Promise.allSettled([get("/health"),get("/public/hfhub/remote-executor-stab02-status-v1"),get("/public/k13/stab02-rec01-diag01-status-v1")]);evidence.health=h.status==="fulfilled"?h.value:null;evidence.remoteExecutor=x.status==="fulfilled"?x.value:null;evidence.diag=d.status==="fulfilled"?d.value:null;evidence.checkedAt=Date.now();render();readback.textContent=JSON.stringify({checked_at:nowIso(),health:evidence.health,remote_executor:evidence.remoteExecutor,diag01:evidence.diag,derived:derive()},null,2)}catch(e){evidence.checkedAt=Date.now();render();readback.textContent="FAIL-CLOSED: "+String(e)}}
+async function readDiag(){try{evidence.diag=await get("/public/k13/stab02-rec01-diag01-status-v1");render();readback.textContent=JSON.stringify({diag01:evidence.diag},null,2)}catch(e){readback.textContent="DIAG01 readback failed: "+String(e)}}
+refresh.onclick=refreshAll;diagStatus.onclick=readDiag;
+save.onclick=()=>{safeSet(KEY,base.value.trim());refreshAll()};
+off.onclick=()=>{safeDel(KEY);Object.assign(evidence,{health:null,remoteExecutor:null,diag:null,checkedAt:null});render();readback.textContent="Telecomando disconnesso localmente."};
 document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-p]").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.querySelectorAll(".page").forEach(x=>x.classList.remove("on"));document.getElementById("p-"+b.dataset.p).classList.add("on")});
-renderLanes(); if(localStorage.getItem(KEY)) readRuntime();
-if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./control-sw.js").catch(()=>{}))}\n</script>\n</body></html>
+render(); if(safeGet(KEY)) refreshAll();
+if("serviceWorker" in navigator&&location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./control-sw.js").catch(()=>{}))}
+</script>
+</body>
+</html>
