@@ -1,0 +1,43 @@
+{
+  "schema": "AIS_REPOSITORY_COMPATIBILITY_V1",
+  "contract_version": "1.0.0",
+  "repository": "AngeloSegreto/AIS-client-preview",
+  "role": "PUBLIC_CLIENT_PREVIEW_SURFACE",
+  "baseline_main_sha": "542854caceefc89c141f6911d3e67ea14ed417b8",
+  "compatibility_authority": {
+    "repository": "AngeloSegreto/AIS-native-foundation",
+    "path": "governance/AIS_STACK_COMPATIBILITY_V1.json"
+  },
+  "versioning": {
+    "target": "SEMVER_2_0_0",
+    "current_source": "release-provenance.json",
+    "observed_version": null,
+    "transition_required": true
+  },
+  "dependencies": [
+    {
+      "repository": "AngeloSegreto/AIS-native-foundation",
+      "kind": "GOVERNANCE_COMPATIBILITY_ONLY",
+      "baseline_main_sha": "6d44fdfebd7fa09157d982f78cc0a23d07e04828",
+      "required_contract_version": "1.0.0"
+    }
+  ],
+  "prohibited_ownership": [
+    "governance",
+    "truth_state",
+    "promotion",
+    "provider_credentials",
+    "training_material"
+  ],
+  "verification": {
+    "validator": "AngeloSegreto/AIS-native-foundation:tools/governance/validate_stack_compatibility.py",
+    "github_actions_change": "NONE",
+    "runner_agnostic": true
+  },
+  "authority_change": false,
+  "promotion_change": false,
+  "spend_authority": false,
+  "release_provenance": "release-provenance.json",
+  "source_identity_semantics": "RELEASE_PROVENANCE_REMAINS_AUTHORITATIVE_FOR_PUBLISHED_CLIENT_BYTES",
+  "governance_logic_allowed": false
+}
